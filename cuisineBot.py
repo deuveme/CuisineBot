@@ -18,6 +18,8 @@ orders = {'numOrders': 0, 'orders': []}
 
 
 def clean_up_sentence(sentence):
+    # CLEAN UP SENTENCE WITH TOKENS AND STEMS
+
     # tokenize the pattern - split words into array
     sentence_words = nltk.word_tokenize(sentence)
     # stem each word - create short form for word
@@ -25,8 +27,9 @@ def clean_up_sentence(sentence):
     return sentence_words
 
 
-# return bag of words array: 0 or 1 for each word in the bag that exists in the sentence
 def bow(sentence, words, show_details=True):
+    # RETURN BAG OF WORDS ARRAY: 0 OR 1 FOR EACH WORD IN THE BAG THAT EXISTS IN THE SENTENCE
+
     # tokenize the pattern
     sentence_words = clean_up_sentence(sentence)
     # bag of words - matrix of N words, vocabulary matrix
@@ -42,7 +45,9 @@ def bow(sentence, words, show_details=True):
 
 
 def predict_class(sentence, model):
-    # filter out predictions below a threshold
+    # PREDICT CLASS OF THE SENTENCE WITH THE MODEL
+
+    # filter our predictions below a threshold
     p = bow(sentence, words, show_details=False)
     res = model.predict(np.array([p]))[0]
     ERROR_THRESHOLD = 0.25
@@ -56,6 +61,8 @@ def predict_class(sentence, model):
 
 
 def getResponse(ints, intents_json, text):
+    # GET RESPONSE FUNCTION
+
     result = "Copy ;)"
     tag = ints[0]['intent']
     if tag == 'orders':
@@ -101,6 +108,8 @@ def getResponse(ints, intents_json, text):
 
 
 def chatbot_response(text):
+    # SEND FUNCTION FOR BOT
+
     ints = predict_class(text, model)
     print(ints)
     res = getResponse(ints, intents, text)
@@ -108,18 +117,21 @@ def chatbot_response(text):
 
 
 def send():
+    # SEND FUNCTION FOR BOT
+
     msg = EntryBox.get("1.0", 'end-1c').strip()
     EntryBox.delete("0.0", END)
     if msg != '':
         ChatLog.config(state=NORMAL)
         ChatLog.insert(END, "You: " + msg + '\n\n')
-        ChatLog.config(foreground="#442265", font=("Verdana", 12))
+        ChatLog.config(foreground="#442265", font=("Arial", 12))
         res = chatbot_response(msg)
         ChatLog.insert(END, "CuisineBot: " + res + '\n\n')
         ChatLog.config(state=DISABLED)
         ChatLog.yview(END)
 
 
+# INTERFACE SET UP
 base = Tk()
 base.title("CuisineBot by David Valero")
 base.geometry("400x500")
@@ -141,11 +153,9 @@ SendButton = Button(base, font=("Arial", 12, 'bold'), text="Send", width="12", h
 # Create the box to enter message
 EntryBox = Text(base, bd=0, bg="white", width="29", height="5", font="Arial")
 
-# EntryBox.bind("<Return>", send)
 # Place all components on the screen
 scrollbar.place(x=376, y=6, height=386)
 ChatLog.place(x=6, y=6, height=386, width=370)
 EntryBox.place(x=6, y=401, height=90, width=265)
 SendButton.place(x=271, y=401, height=90)
 base.mainloop()
-
