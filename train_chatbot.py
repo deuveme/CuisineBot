@@ -13,7 +13,7 @@ words = []
 classes = []
 documents = []
 ignore_words = ['?', '!']
-data_file = open('intents.json').read()
+data_file = open('dataset/intents.json').read()
 intents = json.loads(data_file)
 
 # TOKENIZE PROCESS USING NLTK
@@ -45,8 +45,8 @@ print(len(classes), "classes", classes)
 
 # words = all words, vocabulary
 print(len(words), "unique lemmatized words", words)
-pickle.dump(words, open('words.pkl', 'wb'))
-pickle.dump(classes, open('classes.pkl', 'wb'))
+pickle.dump(words, open('dataset/words.pkl', 'wb'))
+pickle.dump(classes, open('dataset/classes.pkl', 'wb'))
 
 # create our training data
 training = []
@@ -100,5 +100,5 @@ model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy
 
 # Fitting and saving the model
 hist = model.fit(np.array(train_x), np.array(train_y), epochs=200, batch_size=5, verbose=1)
-model.save('chatbot_model.h5', hist)
+model.save('dataset/chatbot_model.h5', hist)
 print("model created")

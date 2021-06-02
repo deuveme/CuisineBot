@@ -1,0 +1,249 @@
+{"intents": [
+        {"tag": "greeting",
+         "patterns": ["Hi there", "Is anyone there?","Hey","Hola", "Hello", "Good day"],
+         "responses": ["Hello!!", "Good to see you again", "Hi there, how can I help?"],
+         "context": [""]
+        },
+        {"tag": "how",
+         "patterns": ["How are you", "How is it going", "What's up"],
+         "responses": ["Really good thanks!!", "Feeling great, and you?", "Extremely happy to be working, you?"],
+         "context": [""]
+        },
+        {"tag": "goodbye",
+         "patterns": ["Bye", "See you later", "Goodbye", "Nice chatting to you, bye", "Till next time"],
+         "responses": ["See you!", "Have a nice day", "Bye! Come back again soon."],
+         "context": [""]
+        },
+        {"tag": "thanks",
+         "patterns": ["Thanks", "Thank you", "That's helpful", "Awesome, thanks", "Thanks for helping me"],
+         "responses": ["Happy to help!", "Any time!", "My pleasure"],
+         "context": [""]
+        },
+        {"tag": "noanswer",
+         "patterns": [],
+         "responses": ["Sorry, can't understand you", "Please give me more info", "Not sure I understand"],
+         "context": [""]
+        },
+        {"tag": "help",
+         "patterns": ["How you could help me?", "What you can do?", "What help you provide?", "How you can be helpful?", "What support is offered"],
+         "responses": ["I can help you to order a table"],
+         "context": [""]
+        },
+        {"tag": "perfect",
+         "patterns": ["Perfect", "Nice", "Great", "Good", "Amazing"],
+         "responses": ["Thanks :))", "Yeaah"],
+         "context": [""]
+        },
+        {"tag": "search",
+         "patterns": ["I want a restaurant", "I'm looking for a restaurant", "I want to order a table"],
+         "responses": ["Tell me, where you want the restaurant? (centre, east, south, north)"],
+         "context": [""]
+        },
+        {"tag": "cancel",
+         "patterns": ["I don't want to continue", "I'm ok, I want to finish the search"],
+         "responses": ["Okay, don't worry!!"],
+         "context": [""]
+        },
+        {"tag": "centre",
+         "patterns": ["centre"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "north",
+         "patterns": ["north"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "south",
+         "patterns": ["south"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "east",
+         "patterns": ["east"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "west",
+         "patterns": ["west", "weest"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "cheap",
+         "patterns": ["cheap"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "expensive",
+         "patterns": ["expensive"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "moderate",
+         "patterns": ["moderate", "mid"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "italian",
+         "patterns": ["italian", "italy"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "indian",
+         "patterns": ["indian", "india"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "chinese",
+         "patterns": ["chinese", "china"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "european",
+         "patterns": ["european", "modern european"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "british",
+         "patterns": ["british", "great britain", "english"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "mexican",
+         "patterns": ["mexican", "mexico"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "lebanese",
+         "patterns": ["lebanese", "Lebanon"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "international",
+         "patterns": ["international", "international"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "french",
+         "patterns": ["french", "france"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "spanish",
+         "patterns": ["spanish", "spain"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "tableBooked",
+         "patterns": ["Do I have a table booked?", "When I have the table booked?", "Where I have the table booked?",
+           "Can you show me my tables?", "Show me my tables"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "1",
+         "patterns": ["1", "one"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "2",
+         "patterns": ["2", "two"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "3",
+         "patterns": ["3", "three"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "4",
+         "patterns": ["4", "four"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "5",
+         "patterns": ["5", "five"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "6",
+         "patterns": ["6", "six"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "7",
+         "patterns": ["7", "seven"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "12:00",
+         "patterns": ["12pm", "12:00", "12.00", "12h", "12:30", "12.45", "12:15"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "13:00",
+         "patterns": ["1pm", "13:00", "13.00", "13h", "13:30", "13.45", "13:15"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "14:00",
+         "patterns": ["2pm", "14:00", "14.00", "14h", "14:30", "14.45", "14:15"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "15:00",
+         "patterns": ["3pm", "15:00", "15.00", "15h", "15:30", "15.45", "15:15"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "16:00",
+         "patterns": ["4pm", "16:00", "16.00", "16h", "16:30", "16.45", "16:15"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "17:00",
+         "patterns": ["5pm", "17:00", "17.00", "17h", "17:30", "17.45", "17:15"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "18:00",
+         "patterns": ["6pm", "18:00", "18.00", "18h", "18:30", "18.45", "18:15"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "19:00",
+         "patterns": ["7pm", "19:00", "19.00", "19h", "19:30", "19.45", "19:15"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "20:00",
+         "patterns": ["8pm", "20:00", "20.00", "20h", "20:30", "20.45", "20:15"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "21:00",
+         "patterns": ["9pm", "21:00", "21.00", "21h", "21:30", "21.45", "21:15"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "22:00",
+         "patterns": ["10pm", "22:00", "22.00", "22h", "22:30", "22.45", "22:15"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "23:00",
+         "patterns": ["11pm", "23:00", "23.00", "23h", "23:30", "23.45", "23:15"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "24:00",
+         "patterns": ["12am", "24:00", "24.00", "24h", "24:30", "00.00", "24:00", "00.45", "00:15"],
+         "responses": [""],
+         "context": [""]
+        },
+        {"tag": "cancel",
+         "patterns": ["I don't like it", "I don't like them", "No", "Cancel", "I want to cancel", "I want to restar"],
+         "responses": ["Okay! Don't worry :)", "Okey!"],
+         "context": [""]
+        }
+]
+}

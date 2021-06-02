@@ -8,13 +8,55 @@ import random
 from tkinter import *
 
 lemmatizer = WordNetLemmatizer()
-model = load_model('chatbot_model.h5')
+model = load_model('dataset/chatbot_model.h5')
 
-intents = json.loads(open('intents.json').read())
-words = pickle.load(open('words.pkl', 'rb'))
-classes = pickle.load(open('classes.pkl', 'rb'))
+intents = json.loads(open('dataset/intents.json').read())
+words = pickle.load(open('dataset/words.pkl', 'rb'))
+classes = pickle.load(open('dataset/classes.pkl', 'rb'))
 
-orders = {'numOrders': 0, 'orders': []}
+search = {'step': 0,
+          'area': '',
+          'priceRange': '',
+          'typeFood': '',
+          'numberPeople': '',
+          'restaurantId': '',
+          'restaurantName': '',
+          'time': '',
+          'options': [],
+          'data': []}
+
+with open("dataset/restaurants.json", "r") as read_file:
+    restaurants = json.load(read_file)
+
+
+def searchRestaurant():
+    food = search['typeFood']
+
+    area = search['area']
+    all_zones = ["centre", "north", "south", "east", "west"]
+    area = all_zones if area not in all_zones else [area]
+
+    pricerange = search['priceRange']
+    pricerange = "cheap" if pricerange == "lo" else "expensive" if pricerange == "hi" else "moderate" if \
+        pricerange == "mid" else pricerange
+
+    print("------>>>>>>", food, area, pricerange)
+    options = [x for x in filter(lambda x: x["food"] == food and x["area"] in area and x["pricerange"] == pricerange,
+                                 restaurants)]
+
+    print(options)
+    search['options'] = options
+    if len(options) != 0:
+        result = "We have found these options: \n"
+        optionNumber = 1
+        for option in options:
+            result += " - " + str(optionNumber) + ": " + option['name'] + ". \n"
+            optionNumber += 1
+        result += "Which option do you prefer? (Just the number)"
+    else:
+        result = "We haven't had any result with your search :( Try another  later if you want ;)"
+        search['step'] = 0
+    return result
 
 
 def clean_up_sentence(sentence):
@@ -65,45 +107,70 @@ def getResponse(ints, intents_json, text):
 
     result = "Copy ;)"
     tag = ints[0]['intent']
-    if tag == 'orders':
-        if len(orders['orders']) == 0:
-            result = "You have no orders, you are free!! Enjoy!"
-        else:
-            result = "You have the following orders: \n"
-            for order in orders['orders']:
-                result += "-> Order num. " + str(order['num']) + " with the plates: "
-                for plate in order['plates']:
-                    result += str(plate) + ", "
-                result += '\n'
-        return result
-
-    elif tag == 'makeOrder':
-        orders['orders'].append({'num': orders['numOrders'] + 1, 'plates': ['one', 'two', 'three']})
-        orders['numOrders'] += 1
-
-    elif tag == 'deleteOrder':
-        for word in clean_up_sentence(text):
-            if word.isnumeric():
-                for order in orders['orders']:
-                    if order['num'] == int(word):
-                        orders['orders'].remove(order)
-                        return "Done, one less!!"
-        return "I can't do it. Not find it this number on the orders :(("
-
-    elif tag == 'deletePlate':
-        for word in clean_up_sentence(text):
-            if word.isnumeric():
-                for order in orders['orders']:
-                    if order['num'] == int(word):
-                        orders['orders'].remove(order)
-                        return "Done, one less!!"
-        return "I can't do it. Not find it this number on the orders :(("
-
-    list_of_intents = intents_json['intents']
-    for i in list_of_intents:
-        if i['tag'] == tag:
-            result = random.choice(i['responses'])
+    if tag == 'cancel':
+        search['step'] = 0
+        for i in intents_json['intents']:
+            if i['tag'] == tag:
+                return random.choice(i['responses'])
+    else:
+        if search['step'] == 1:
+            search['area'] = tag
+            search['step'] += 1
+            result = "Nice! How much you want to spend? (cheap, moderate, expensive)"
             return result
+        elif search['step'] == 2:
+            search['priceRange'] = tag
+            search['step'] += 1
+            result = "Great! Which type of food? (italian, indian, chinese, european, british, mexican, lebanese, " \
+                     "international, spanish or french)"
+            return result
+        elif search['step'] == 3:
+            search['typeFood'] = tag
+            search['step'] += 1
+            result = searchRestaurant()
+            return result
+        elif search['step'] == 4:
+            search['restaurantId'] = search['options'][int(tag) - 1]['id']
+            search['restaurantName'] = search['options'][int(tag) - 1]['name']
+            search['step'] += 1
+            result = "Great! For how many people? (Just the number)"
+            return result
+        elif search['step'] == 5:
+            search['numberPeople'] = tag
+            search['step'] += 1
+            result = "Great! When you want the table?"
+            return result
+        elif search['step'] == 6:
+            search['time'] = tag
+            search['step'] = 0
+            search['data'].append({'restaurantName': search['restaurantName'],
+                                   'time': search['time'],
+                                   'numberPeople': search['numberPeople']})
+            result = "Great! Booking a table now at " + search['restaurantName'] + " at " + search['time'] + " for " \
+                     + search['numberPeople'] + " people :)"
+            return result
+        else:
+            if tag == 'search':
+                result = "Tell me, where you want the restaurant? (centre, east, west, south or north)"
+                search['step'] += 1
+                return result
+            if tag == 'tableBooked':
+                if len(search['data']) == 0:
+                    result = "You haven't booked a table yet, you can do it now ;)"
+                else:
+                    print(search['data'])
+                    result = "You have this tables booked for today: \n"
+                    for data in search['data']:
+                        result += " -> Table at " + data['restaurantName'] + " at " + data['time'] \
+                                  + " for " + data['numberPeople'] + " people. \n"
+                return result
+
+            list_of_intents = intents_json['intents']
+            for i in list_of_intents:
+                if i['tag'] == tag:
+                    result = random.choice(i['responses'])
+                    return result
+
     return result
 
 
